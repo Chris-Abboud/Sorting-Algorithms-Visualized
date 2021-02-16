@@ -13,8 +13,10 @@ def printMenu():
     print("3. Insertion Sort")
     print("4. Merge Sort")
     print("5. Quick Sort")
+    print("6. See All")
+    print("7. Exit")
     print()
-
+    
     return int(float(input("What sorting algorithm would you like to use? ", )))
 
 def GenerateList(ListLength, ListLowerRange, ListUpperRange):
@@ -22,3 +24,4 @@ def GenerateList(ListLength, ListLowerRange, ListUpperRange):
     for i in range(int(ListLength)):
         List.append(random.randint(int(ListLowerRange),int(ListUpperRange)))
     return List
+    
