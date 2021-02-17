@@ -2,31 +2,50 @@
 import copy
 from UI_Functions import *
 from graphics import *
+from BarClass import *
+import time
 
 def clear(win):
     for item in win.items[:]:
         item.undraw()
-    win.update()
+    
 
-def SelectionSort(List, win):
-    List2 = copy.copy(List)
+def SelectionSort(List2, win):
     for i in range(len(List2)):
         MinimumValue = List2[i]
         SwapIndex = i
-        print("I", i)
 
         for j in range(i, len(List2)):
-            if List2[j] < MinimumValue:
+            if List2[j].value < MinimumValue.value:
                 MinimumValue = List2[j]
                 SwapIndex = j
 
-        SwapValue = List2[i]
-        List2[i] = MinimumValue
-        List2[SwapIndex] = SwapValue
+        SwapValue = List2[i].value #Must use integer. Using object itself will cause the entire object to change the others
+        
 
-    
-        clear(win)
-        plotGraph(List2, win)
+        List2[i].p1.y = MinimumValue.value
+        List2[i].value = MinimumValue.value
+
+        List2[SwapIndex].p1.y = SwapValue
+        List2[SwapIndex].value = SwapValue
+
+        if (SwapIndex != i):
+            List2[SwapIndex].undraw()
+            List2[i].undraw()
+            List2[SwapIndex].setFill("Green")
+            List2[SwapIndex].draw(win)
+            List2[i].setFill("Green")
+            List2[i].draw(win)
+        else:
+            List2[i].setFill("Green")
+            List2[i].undraw()
+            List2[i].draw(win)
+
+        update()
+        time.sleep(.025)
+        List2[SwapIndex].setFill("Red")
+        List2[i].setFill("Red")
+
     return List2
 
 def BubbleSort(List):
@@ -95,6 +114,7 @@ def QuickSort(List):
             items_lower.append(item)
 
     return QuickSort(items_lower) + [pivot] + QuickSort(items_greater)
+
 
 
 #%%

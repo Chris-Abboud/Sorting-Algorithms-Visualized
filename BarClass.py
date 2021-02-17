@@ -6,6 +6,7 @@ class MegaRect(RectangleBase):
     color = "Red"
     value = 0
 
+
 def GenerateBars(List, WinWidth, WinHeight):
     BarList = []
     RectLength = WinWidth / len(List)
@@ -22,4 +23,8 @@ def GenerateBars(List, WinWidth, WinHeight):
 def plotGraph(List, win):
     for i in range(len(List)):
         List[i].draw(win)
+    win.update()
+
+def plotSingle(Rect, win):
+    Rect.draw(win)
     win.update()
