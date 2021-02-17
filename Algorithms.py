@@ -24,9 +24,9 @@ def SelectionSort(List, win):
         List2[i] = MinimumValue
         List2[SwapIndex] = SwapValue
 
+    
         clear(win)
         plotGraph(List2, win)
-
     return List2
 
 def BubbleSort(List):
@@ -96,31 +96,5 @@ def QuickSort(List):
 
     return QuickSort(items_lower) + [pivot] + QuickSort(items_greater)
 
-def plotGraph(List, win):
-
-    RectLength = 1000 / len(List)
-
-
-    for i in range(len(List)):
-        #print("I:", i)
-        #print("Point 1: ", i * RectLength, List[i])
-        #print("Point 2: ", i * RectLength + RectLength, 1000)
-        rect = Rectangle(Point(i * RectLength, Height - List[i]), Point(i * RectLength + RectLength, 1000))
-        rect.setOutline("")
-        rect.setFill('red')
-        rect.draw(win)
-
-    
-
-
-
-List = GenerateList(200, 0, 500)
-Length = 1000
-Height = max(List)
-win = GraphWin("My Window", Length, Height)
-win.setBackground('black')
-SelectionSort(List, win)
-
-win.getMouse()
 
 #%%

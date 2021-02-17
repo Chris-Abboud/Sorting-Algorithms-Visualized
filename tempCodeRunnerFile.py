@@ -1,1 +1,1 @@
-clear(win)
+Point(10, 50), Point(50, 1000)
