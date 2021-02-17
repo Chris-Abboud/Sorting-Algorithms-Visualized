@@ -8,8 +8,10 @@ def main():
     WindowWidth = 1000
     ButtonSpace = 100
     ButtonHeight = 80
+    ListValues = 150
+    ListMaximum = 500
 
-    ListInputs = ListCreationInputs() # Random List [Range, Low, High]
+    ListInputs = [ListValues, 0, ListMaximum] # Random List [Range, Low, High]
     ValueList = GenerateList(ListInputs[0], ListInputs[1], ListInputs[2])
     VisualBars = GenerateBars(ValueList,WindowWidth, max(ValueList)) #Transforms List to List of super class
 
@@ -22,7 +24,9 @@ def main():
         clickPoint = window.getMouse()
 
         if inside(clickPoint, Selection):
-            SelectionSort(VisualBars, window)
+            SelectionSort(VisualBars, window, max(ValueList))
+        if inside(clickPoint, Bubble):
+            BubbleSort(VisualBars, window, max(ValueList))
         elif inside(clickPoint, Reset):
             ValueList = GenerateList(ListInputs[0], ListInputs[1], ListInputs[2])
             VisualBars = GenerateBars(ValueList,WindowWidth, max(ValueList))

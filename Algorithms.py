@@ -16,43 +16,36 @@ def ShowSwap(RecOne, RecTwo, win):
     RecTwo.setFill("Green")
     RecOne.draw(win)
     RecTwo.draw(win)
-    update()
+    win.update()
 
-def SelectionSort(List2, win):
+def SelectionSort(List2, win, WinHeight):
     for i in range(len(List2)):
         MinimumValue = List2[i]
         SwapIndex = i
 
         for j in range(i, len(List2)):
-            if List2[j].value > MinimumValue.value:
+            if List2[j].value < MinimumValue.value:
                 MinimumValue = List2[j]
                 SwapIndex = j
 
         SwapValue = List2[i].value #Must use integer. Using object itself will cause the entire object to change the others
-        
-
-        List2[i].p1.y = MinimumValue.value
+        List2[i].p1.y = WinHeight - MinimumValue.value #Must subtract from max height value to un-invert the rectangle
         List2[i].value = MinimumValue.value
 
-        List2[SwapIndex].p1.y = SwapValue
+        List2[SwapIndex].p1.y = WinHeight - SwapValue
         List2[SwapIndex].value = SwapValue
 
         if (SwapIndex != i):
-            ShowSwap(List2[SwapIndex], List2[i], win)
-        else:
-            List2[i].setFill("Green")
-            List2[i].undraw()
-            List2[i].draw(win)
-
-        update()
+            ShowSwap(List2[SwapIndex], List2[i], win) #Visuals Shows what happens when 2 things get swapped
+            
         time.sleep(.025)
         List2[SwapIndex].setFill("Red")
         List2[i].setFill("Red")
+        win.update() #Updates Window After Any Changes
 
     return List2
 
-def BubbleSort(List):
-    List2 = copy.copy(List)
+def BubbleSort(List2, win, WinHeight):
     for i in range(len(List2) - 1):
         for j in range(0, len(List2) - i - 1):
             if List2[j] > List2[j+1]:
