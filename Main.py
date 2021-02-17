@@ -4,18 +4,36 @@ from BarClass import *
 from SortingAlgorithms import *
 from graphics import *
 
+def main():
+    WindowWidth = 1000
+    ButtonSpace = 100
+    ButtonHeight = 80
 
-WindowWidth = 1000
-ButtonHeight = 100
+    ListInputs = ListCreationInputs() # Random List [Range, Low, High]
+    ValueList = GenerateList(ListInputs[0], ListInputs[1], ListInputs[2])
+    VisualBars = GenerateBars(ValueList,WindowWidth, max(ValueList)) #Transforms List to List of super class
 
-ListInputs = ListCreationInputs() # Random List [Range, Low, High]
-ValueList = GenerateList(ListInputs[0], ListInputs[1], ListInputs[2])
-VisualBars = GenerateBars(ValueList,WindowWidth, max(ValueList)) #Transforms List to List of super class
+    window = GraphWin("Sorting Algorithms Visualized", WindowWidth, max(ValueList) + ButtonHeight, autoflush=False) #Creates Window
+    window.setBackground('black')
+    plotGraph(VisualBars, window)
+    
+    while True:
+        Selection, Bubble, Insertion, Merge, Quick, Reset = buttons(WindowWidth, ListInputs[2], ButtonSpace, ButtonHeight, window)
+        clickPoint = window.getMouse()
 
-window = GraphWin("Sorting Algorithms Visualized", WindowWidth, max(ValueList) + ButtonHeight, autoflush=False) #Creates Window
-window.setBackground('black')
-plotGraph(VisualBars, window)
-SelectionSort(VisualBars, window)
-window.getMouse()
+        if inside(clickPoint, Selection):
+            SelectionSort(VisualBars, window)
+        elif inside(clickPoint, Reset):
+            ValueList = GenerateList(ListInputs[0], ListInputs[1], ListInputs[2])
+            VisualBars = GenerateBars(ValueList,WindowWidth, max(ValueList))
+            clear(window)
+            plotGraph(VisualBars, window)
+            
+
+
+main()
+
+
+
 
 

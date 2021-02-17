@@ -21,7 +21,9 @@ def printMenu():
 
 def GenerateList(ListLength, ListLowerRange, ListUpperRange):
     List = []
-    for i in range(int(ListLength)):
+    for i in range(int(ListLength) - 1):
         List.append(random.randint(int(ListLowerRange),int(ListUpperRange)))
+
+    List.append(ListUpperRange)
     return List
     

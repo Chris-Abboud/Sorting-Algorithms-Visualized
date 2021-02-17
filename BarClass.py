@@ -6,7 +6,6 @@ class MegaRect(RectangleBase):
     color = "Red"
     value = 0
 
-
 def GenerateBars(List, WinWidth, WinHeight):
     BarList = []
     RectLength = WinWidth / len(List)
@@ -28,3 +27,62 @@ def plotGraph(List, win):
 def plotSingle(Rect, win):
     Rect.draw(win)
     win.update()
+
+def buttons(WindowWidth, WindowHeight, ButtonSpace, ButtonHeight, window):
+    EdgeSpace = 50
+    Between = 15
+
+    FreeSpace = WindowWidth - (EdgeSpace * 2) - (Between * 6)
+    Spacer = FreeSpace / 6
+
+    Selection = Rectangle(Point(EdgeSpace + Between, (ButtonSpace - ButtonHeight) / 2 + WindowHeight), Point(EdgeSpace + Spacer, WindowHeight + ButtonHeight - (ButtonSpace - ButtonHeight)/2))
+    Selection.setFill("Orange")
+    Selection.draw(window)
+    SelectionCenter = Selection.getCenter()
+    SelectionText = Text(SelectionCenter, "Selection Sort")
+    SelectionText.draw(window)
+
+    Bubble = Rectangle(Point(EdgeSpace + Spacer * 1 + Between * 2, (ButtonSpace - ButtonHeight) / 2 + WindowHeight), Point(EdgeSpace + Spacer * 2 + Between * 1, WindowHeight + ButtonHeight - (ButtonSpace - ButtonHeight)/2))
+    Bubble.setFill("Orange")
+    Bubble.draw(window)
+    BubbleCenter = Bubble.getCenter()
+    BubbleText = Text(BubbleCenter, "Bubble Sort")
+    BubbleText.draw(window)
+
+    Insertion = Rectangle(Point(EdgeSpace + Spacer * 2 + Between * 3, (ButtonSpace - ButtonHeight) / 2 + WindowHeight), Point(EdgeSpace + Spacer * 3 + Between * 2, WindowHeight + ButtonHeight - (ButtonSpace - ButtonHeight)/2))
+    Insertion.setFill("Orange")
+    Insertion.draw(window)
+    InsertionCenter = Insertion.getCenter()
+    InsertionText = Text(InsertionCenter, "Insertion Sort")
+    InsertionText.draw(window)
+
+    Merge = Rectangle(Point(EdgeSpace + Spacer * 3 + Between * 4, (ButtonSpace - ButtonHeight) / 2 + WindowHeight), Point(EdgeSpace + Spacer * 4 + Between * 3, WindowHeight + ButtonHeight - (ButtonSpace - ButtonHeight)/2))
+    Merge.setFill("Orange")
+    Merge.draw(window)
+    MergeCenter = Merge.getCenter()
+    MergeText = Text(MergeCenter, "Merge Sort")
+    MergeText.draw(window)
+
+    Quick = Rectangle(Point(EdgeSpace + Spacer * 4 + Between * 5, (ButtonSpace - ButtonHeight) / 2 + WindowHeight), Point(EdgeSpace + Spacer * 5 + Between * 4, WindowHeight + ButtonHeight - (ButtonSpace - ButtonHeight)/2))
+    Quick.setFill("Orange")
+    Quick.draw(window)
+    QuickCenter = Quick.getCenter()
+    QuickText = Text(QuickCenter, "Quick Sort")
+    QuickText.draw(window)
+
+    NewData = Rectangle(Point(EdgeSpace + Spacer * 5 + Between * 6, (ButtonSpace - ButtonHeight) / 2 + WindowHeight), Point(EdgeSpace + Spacer * 6 + Between * 5, WindowHeight + ButtonHeight - (ButtonSpace - ButtonHeight)/2))
+    NewData.setFill("Orange")
+    NewData.draw(window)
+    NewDataCenter = NewData.getCenter()
+    NewDataText = Text(NewDataCenter, "New Data")
+    NewDataText.draw(window)
+
+    window.update()
+
+    return Selection, Bubble, Insertion, Merge, Quick, NewData
+
+def inside(point, rectangle):
+    ll = rectangle.getP1()  # assume p1 is ll (lower left)
+    ur = rectangle.getP2()  # assume p2 is ur (upper right)
+
+    return ll.getX() < point.getX() < ur.getX() and ll.getY() < point.getY() < ur.getY()

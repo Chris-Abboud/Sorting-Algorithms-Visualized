@@ -9,6 +9,14 @@ def clear(win):
     for item in win.items[:]:
         item.undraw()
     
+def ShowSwap(RecOne, RecTwo, win):
+    RecOne.undraw()
+    RecTwo.undraw()
+    RecOne.setFill("Green")
+    RecTwo.setFill("Green")
+    RecOne.draw(win)
+    RecTwo.draw(win)
+    update()
 
 def SelectionSort(List2, win):
     for i in range(len(List2)):
@@ -16,7 +24,7 @@ def SelectionSort(List2, win):
         SwapIndex = i
 
         for j in range(i, len(List2)):
-            if List2[j].value < MinimumValue.value:
+            if List2[j].value > MinimumValue.value:
                 MinimumValue = List2[j]
                 SwapIndex = j
 
@@ -30,12 +38,7 @@ def SelectionSort(List2, win):
         List2[SwapIndex].value = SwapValue
 
         if (SwapIndex != i):
-            List2[SwapIndex].undraw()
-            List2[i].undraw()
-            List2[SwapIndex].setFill("Green")
-            List2[SwapIndex].draw(win)
-            List2[i].setFill("Green")
-            List2[i].draw(win)
+            ShowSwap(List2[SwapIndex], List2[i], win)
         else:
             List2[i].setFill("Green")
             List2[i].undraw()
