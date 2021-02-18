@@ -11,7 +11,7 @@ def main():
     ListValues = 150
     ListMaximum = 500
 
-    ListInputs = [ListValues, 0, ListMaximum] # Random List [Range, Low, High]
+    ListInputs = [ListValues, 1, ListMaximum] # Random List [Range, Low, High]
     ValueList = GenerateList(ListInputs[0], ListInputs[1], ListInputs[2])
     VisualBars = GenerateBars(ValueList,WindowWidth, max(ValueList)) #Transforms List to List of super class
 
@@ -25,8 +25,10 @@ def main():
 
         if inside(clickPoint, Selection):
             SelectionSort(VisualBars, window, max(ValueList))
-        if inside(clickPoint, Bubble):
+        elif inside(clickPoint, Bubble):
             BubbleSort(VisualBars, window, max(ValueList))
+        elif inside(clickPoint, Insertion):
+            InsertionSort(VisualBars, window, max(ValueList))
         elif inside(clickPoint, Reset):
             ValueList = GenerateList(ListInputs[0], ListInputs[1], ListInputs[2])
             VisualBars = GenerateBars(ValueList,WindowWidth, max(ValueList))

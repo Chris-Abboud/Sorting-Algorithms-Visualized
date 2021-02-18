@@ -46,27 +46,43 @@ def SelectionSort(List2, win, WinHeight):
     return List2
 
 def BubbleSort(List2, win, WinHeight):
+
     for i in range(len(List2) - 1):
         for j in range(0, len(List2) - i - 1):
-            if List2[j] > List2[j+1]:
-                Minimum = List2[j+1]
-                Maximum = List2[j]
-                List2[j] = Minimum
-                List2[j+1] = Maximum
-    
+            if List2[j].value > List2[j+1].value:
+                TempForward = List2[j+1].value
+                TempBack = List2[j].value
+
+                List2[j].value = TempForward
+                List2[j+1].value = TempBack
+
+                List2[j].p1.y = WinHeight - TempForward
+                List2[j+1].p1.y = WinHeight - TempBack
+
+                ShowSwap(List2[j], List2[j+1], win)
+
+                List2[j].setFill("Red")
+                List2[j+1].setFill("Red")
+                win.update()
+
+    return List2
+                
+                
     return List2
 
 def InsertionSort(List):
     List2 = copy.copy(List)
-    for i in range(1, len(List2)):
-        Num = List2[i]
-        j = i - 1 
-        while (j >= 0 and List2[j] > Num):
-            List2[j+1] = List2[j]
-            j-=1
-        List2[j] = Num
+
+    for i in range(1, len(List2)): 
+        j = i-1
+        while j >=0 and List2[i]  < List2[j] : 
+                List2[j+1] = List2[j] 
+                j -= 1
+        List2[j+1] = List2[i]
+
     return List2
-    
+
+#%% 
 def MergeSort(List):
     List2 = copy.copy(List)
     if len(List2) <=1:

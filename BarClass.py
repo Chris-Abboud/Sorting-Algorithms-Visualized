@@ -31,9 +31,10 @@ def plotSingle(Rect, win):
 def buttons(WindowWidth, WindowHeight, ButtonSpace, ButtonHeight, window):
     EdgeSpace = 50
     Between = 15
+    Buttons = 6
 
-    FreeSpace = WindowWidth - (EdgeSpace * 2) - (Between * 6)
-    Spacer = FreeSpace / 6
+    FreeSpace = WindowWidth - (EdgeSpace * 2) - (Between * Buttons)
+    Spacer = FreeSpace / Buttons
 
     Selection = Rectangle(Point(EdgeSpace + Between, (ButtonSpace - ButtonHeight) / 2 + WindowHeight), Point(EdgeSpace + Spacer, WindowHeight + ButtonHeight - (ButtonSpace - ButtonHeight)/2))
     Selection.setFill("Orange")
