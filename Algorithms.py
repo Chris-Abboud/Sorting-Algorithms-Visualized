@@ -70,15 +70,32 @@ def BubbleSort(List2, win, WinHeight):
                 
     return List2
 
-def InsertionSort(List):
+def InsertionSort(List, win, WindowHeight):
     List2 = copy.copy(List)
+    print("I got in")
 
     for i in range(1, len(List2)): 
+        key = List2[i].value 
         j = i-1
-        while j >=0 and List2[i]  < List2[j] : 
-                List2[j+1] = List2[j] 
+        while (j >=0 and key < List2[j].value): 
+                List2[j+1].p1.y = WindowHeight - List2[j].value
+                List2[j+1].value = List2[j].value
+                ShowSwap(List2[j+1], List2[j], win)
+                List2[j].setFill("Red")
+                List2[j+1].setFill("Red")
                 j -= 1
-        List2[j+1] = List2[i]
+
+        
+        List2[j+1].value = key 
+        List2[j+1].p1.y = WindowHeight - key
+        ShowSwap(List2[j+1], List2[j], win)
+        List2[j].setFill("Red")
+        List2[j+1].setFill("Red")
+        time.sleep(.006)
+
+
+    for thing in List2:
+        print(thing.value)
 
     return List2
 
