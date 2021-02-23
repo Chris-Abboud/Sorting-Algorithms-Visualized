@@ -11,12 +11,31 @@ def clear(win):
     
 def ShowSwap(RecOne, RecTwo, win):
     RecOne.undraw()
-    RecTwo.undraw()
     RecOne.setFill("Green")
-    RecTwo.setFill("Green")
     RecOne.draw(win)
+
+    RecTwo.undraw()
+    RecTwo.setFill("Green")
     RecTwo.draw(win)
+
     win.update()
+
+def setXValues(List, win):
+    List2 = copy.copy(List)
+    PossXs = []
+    for thing in List:
+        PossXs.append([thing.p1.x, thing.p2.x, thing])
+        
+    PossXs = sorted(PossXs, key=lambda x: x[1])
+    count = 0
+
+    for thing in List:
+        thing.p1.x = PossXs[count][0]
+        thing.p2.x = PossXs[count][1]
+        count+=1
+
+    return List
+
 
 def SelectionSort(List2, win, WinHeight):
     for i in range(len(List2)):
@@ -66,13 +85,9 @@ def BubbleSort(List2, win, WinHeight):
                 win.update()
 
     return List2
-                
-                
-    return List2
 
 def InsertionSort(List, win, WindowHeight):
     List2 = copy.copy(List)
-    print("I got in")
 
     for i in range(1, len(List2)): 
         key = List2[i].value 
@@ -92,10 +107,6 @@ def InsertionSort(List, win, WindowHeight):
         List2[j].setFill("Red")
         List2[j+1].setFill("Red")
         time.sleep(.006)
-
-
-    for thing in List2:
-        print(thing.value)
 
     return List2
 
@@ -126,23 +137,36 @@ def Merge(left, right):
 
     return result
 
-def QuickSort(List):
-    List2 = copy.copy(List)
+def QuickSort(List2, win, WindowHeight):
     length = len(List2)
+
     if length <= 1:
         return List2
     else:
         pivot = List2.pop()
+    
+    pivot.p1.y = WindowHeight - pivot.value
 
     items_greater = []
     items_lower = []
     for item in List2:
-        if item > pivot:
+        if item.p1.y < pivot.p1.y: #Will sort the bars based on whatever value - CHANGES LOCATION AND NOT HEIGHT
+            item.undraw()
+            item.p1.y = WindowHeight - item.value
+            item.draw(win)
+            win.update()
+            time.sleep(.55)
             items_greater.append(item)
         else:
+            item.undraw()
+            item.p1.y = WindowHeight - item.value
+            item.draw(win)
+            win.update()
+            time.sleep(.55)
             items_lower.append(item)
+    
 
-    return QuickSort(items_lower) + [pivot] + QuickSort(items_greater)
+    return setXValues(QuickSort(items_lower, win, WindowHeight) + [pivot] + QuickSort(items_greater, win, WindowHeight), win)
 
 
 
