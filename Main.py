@@ -8,7 +8,7 @@ def main():
     WindowWidth = 1000
     ButtonSpace = 100
     ButtonHeight = 80
-    ListValues = 5
+    ListValues = 500
     ListMaximum = 500
 
     ListInputs = [ListValues, 1, ListMaximum] # Random List [Range, Low, High]
@@ -32,10 +32,7 @@ def main():
         elif inside(clickPoint, Merge):
             setXValues(VisualBars, window)
         elif inside(clickPoint, Quick):
-            QuickSort(VisualBars, window, max(ValueList))
-
-            
-
+            QuickSort(VisualBars, 0, ListValues - 1, window, max(ValueList))
         elif inside(clickPoint, Reset):
             ValueList = GenerateList(ListInputs[0], ListInputs[1], ListInputs[2])
             VisualBars = GenerateBars(ValueList,WindowWidth, max(ValueList))

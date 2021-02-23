@@ -57,7 +57,7 @@ def SelectionSort(List2, win, WinHeight):
         if (SwapIndex != i):
             ShowSwap(List2[SwapIndex], List2[i], win) #Visuals Shows what happens when 2 things get swapped
             
-        time.sleep(.025)
+        #time.sleep(.025)
         List2[SwapIndex].setFill("Red")
         List2[i].setFill("Red")
         win.update() #Updates Window After Any Changes
@@ -106,7 +106,7 @@ def InsertionSort(List, win, WindowHeight):
         ShowSwap(List2[j+1], List2[j], win)
         List2[j].setFill("Red")
         List2[j+1].setFill("Red")
-        time.sleep(.006)
+        #time.sleep(.006)
 
     return List2
 
@@ -137,36 +137,42 @@ def Merge(left, right):
 
     return result
 
-def QuickSort(List2, win, WindowHeight):
-    length = len(List2)
+def QuickSort(List, begin, end, win, WindowHeight):
+    if (begin < end):
+        partitionIndex = partition(List, begin, end, WindowHeight, win)
 
-    if length <= 1:
-        return List2
-    else:
-        pivot = List2.pop()
-    
-    pivot.p1.y = WindowHeight - pivot.value
-
-    items_greater = []
-    items_lower = []
-    for item in List2:
-        if item.p1.y < pivot.p1.y: #Will sort the bars based on whatever value - CHANGES LOCATION AND NOT HEIGHT
-            item.undraw()
-            item.p1.y = WindowHeight - item.value
-            item.draw(win)
-            win.update()
-            time.sleep(.55)
-            items_greater.append(item)
-        else:
-            item.undraw()
-            item.p1.y = WindowHeight - item.value
-            item.draw(win)
-            win.update()
-            time.sleep(.55)
-            items_lower.append(item)
+        QuickSort(List, begin, partitionIndex-1, win, WindowHeight)
+        QuickSort(List, partitionIndex+1, end, win, WindowHeight)
     
 
-    return setXValues(QuickSort(items_lower, win, WindowHeight) + [pivot] + QuickSort(items_greater, win, WindowHeight), win)
+def partition(List, begin, end, WindowHeight, win):
+    pivot = List[end]
+    i = (begin - 1)
+
+    for j in range(begin, end):
+        if (List[j].value <= pivot.value):
+            i+=1
+
+            swapTemp = List[i].value
+            List[i].value = List[j].value
+            List[i].p1.y = WindowHeight - List[i].value
+            List[j].value = swapTemp
+            List[j].p1.y = WindowHeight - swapTemp
+            ShowSwap(List[i], List[j], win)
+            List[i].setFill("Red")
+            List[j].setFill("Red")
+
+    swapTemp = List[i+1].value
+    List[i+1].value = List[end].value
+    List[i+1].p1.y = WindowHeight - List[i+1].value
+    List[end].value = swapTemp
+    List[end].p1.y = WindowHeight - swapTemp
+    ShowSwap(List[i+1], List[end], win)
+    List[i+1].setFill("Red")
+    List[end].setFill("Red")
+
+    return i+1
+    
 
 
 
