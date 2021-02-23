@@ -6,6 +6,12 @@ class MegaRect(RectangleBase):
     color = "Red"
     value = 0
 
+def changeConsoleText(Text, Status, window):
+    Text.undraw()
+    Text.setText(Status)
+    Text.draw(window)
+    window.update()
+
 def GenerateBars(List, WinWidth, WinHeight):
     BarList = []
     RectLength = WinWidth / len(List)
@@ -28,7 +34,8 @@ def plotSingle(Rect, win):
     Rect.draw(win)
     win.update()
 
-def buttons(WindowWidth, WindowHeight, ButtonSpace, ButtonHeight, window):
+
+def buttons(WindowWidth, WindowHeight, ButtonSpace, ButtonHeight, ConsoleSpace, text, window):
     EdgeSpace = 50
     Between = 15
     Buttons = 6
@@ -78,9 +85,44 @@ def buttons(WindowWidth, WindowHeight, ButtonSpace, ButtonHeight, window):
     NewDataText = Text(NewDataCenter, "New Data")
     NewDataText.draw(window)
 
+    ConsoleBox = Rectangle(Point(EdgeSpace + Between, WindowHeight + ButtonHeight - (ButtonSpace - ButtonHeight)/2 + Between), Point(EdgeSpace + Spacer, WindowHeight + ButtonHeight - (ButtonSpace - ButtonHeight)/2 + Between + Between + Between))
+    ConsoleBox.setFill("Orange")
+    ConsoleBox.draw(window)
+    ConsoleBoxCenter = ConsoleBox.getCenter()
+    ConsoleBoxText = Text(ConsoleBoxCenter, "Status: ")
+    ConsoleBoxText.draw(window)
+
+    Console = Rectangle(Point(EdgeSpace + Spacer * 1 + Between * 2, WindowHeight + ButtonHeight - (ButtonSpace - ButtonHeight)/2 + Between), Point(EdgeSpace + Spacer * 4 + Between * 3, WindowHeight + ButtonHeight - (ButtonSpace - ButtonHeight)/2 + Between + Between + Between))
+    Console.setOutline("Orange")
+    Console.draw(window)
+    ConsoleCenter = Console.getCenter()
+    ConsoleText = Text(ConsoleCenter, "Ready")
+    ConsoleText.setStyle("italic")
+    
+    ConsoleText.setTextColor("Orange")
+    ConsoleText.draw(window)
+
+    EntryBox = Rectangle(Point(EdgeSpace + Spacer * 4 + Between * 5, WindowHeight + ButtonHeight - (ButtonSpace - ButtonHeight)/2 + Between), Point(EdgeSpace + Spacer * 5 + Between * 4, WindowHeight + ButtonHeight - (ButtonSpace - ButtonHeight)/2 + Between + Between + Between))
+    EntryBox.setFill("Orange")
+    EntryBox.draw(window)
+    EntryBoxCenter = EntryBox.getCenter()
+    EntryBoxText = Text(EntryBoxCenter, "# Of Bars:")
+    EntryBoxText.draw(window)
+
+    EntryBoxNumber = Rectangle(Point(EdgeSpace + Spacer * 5 + Between * 6, WindowHeight + ButtonHeight - (ButtonSpace - ButtonHeight)/2 + Between), Point(EdgeSpace + Spacer * 6 + Between * 5, WindowHeight + ButtonHeight - (ButtonSpace - ButtonHeight)/2 + Between + Between + Between))
+    EntryBoxNumber.setFill("Orange")
+    EntryBoxNumberCenter = EntryBoxNumber.getCenter()
+    Number = Entry(EntryBoxNumberCenter, 12)
+    Number.setFill("Black")
+    Number.setTextColor("Orange")
+    Number.setText(text)
+    Number.draw(window)
+
+
+
     window.update()
 
-    return Selection, Bubble, Insertion, Merge, Quick, NewData
+    return Selection, Bubble, Insertion, Merge, Quick, NewData, ConsoleText, Number
 
 def inside(point, rectangle):
     ll = rectangle.getP1()  # assume p1 is ll (lower left)
