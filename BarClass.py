@@ -2,7 +2,7 @@ from graphics import *
 from UI_Functions import *
 from graphics import Rectangle as RectangleBase
 
-class MegaRect(RectangleBase):
+class MegaRect(RectangleBase): #A superclass had to be created to hold "Value" and initial Color
     color = "Red"
     value = 0
 
@@ -12,7 +12,7 @@ def changeConsoleText(Text, Status, window):
     Text.draw(window)
     window.update()
 
-def GenerateBars(List, WinWidth, WinHeight):
+def GenerateBars(List, WinWidth, WinHeight): #Converts a list of values to rectangle objects used for plotting
     BarList = []
     RectLength = WinWidth / len(List)
 
@@ -25,17 +25,17 @@ def GenerateBars(List, WinWidth, WinHeight):
 
     return BarList
 
-def plotGraph(List, win):
+def plotGraph(List, win): #Plot all bars in list
     for i in range(len(List)):
         List[i].draw(win)
     win.update()
 
-def plotSingle(Rect, win):
+def plotSingle(Rect, win): #Plot single bar
     Rect.draw(win)
     win.update()
 
 
-def buttons(WindowWidth, WindowHeight, ButtonSpace, ButtonHeight, ConsoleSpace, text, window):
+def buttons(WindowWidth, WindowHeight, ButtonSpace, ButtonHeight, ConsoleSpace, text, window): #All UI Elements
     EdgeSpace = 50
     Between = 15
     Buttons = 6
@@ -124,7 +124,7 @@ def buttons(WindowWidth, WindowHeight, ButtonSpace, ButtonHeight, ConsoleSpace, 
 
     return Selection, Bubble, Insertion, Merge, Quick, NewData, ConsoleText, Number
 
-def inside(point, rectangle):
+def inside(point, rectangle): #Used for the buttons
     ll = rectangle.getP1()  # assume p1 is ll (lower left)
     ur = rectangle.getP2()  # assume p2 is ur (upper right)
 

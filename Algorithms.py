@@ -8,7 +8,11 @@ import time
 def clear(win):
     for item in win.items[:]:
         item.undraw()
-    
+def isAlreadySorted(List):
+    for i in range(1, len(List)):
+        if (List[i].value < List[i-1].value):
+            return False
+    return True
 def ShowSwap(RecOne, RecTwo, win):
     RecOne.undraw()
     RecOne.setFill("Green")
@@ -19,6 +23,9 @@ def ShowSwap(RecOne, RecTwo, win):
     RecTwo.draw(win)
 
     win.update()
+
+    RecOne.setFill("Red")
+    RecTwo.setFill("Red")
 
 def setXValues(List, win):
     List2 = copy.copy(List)
@@ -58,9 +65,6 @@ def SelectionSort(List2, win, WinHeight):
             ShowSwap(List2[SwapIndex], List2[i], win) #Visuals Shows what happens when 2 things get swapped
             
         #time.sleep(.025)
-        List2[SwapIndex].setFill("Red")
-        List2[i].setFill("Red")
-        win.update() #Updates Window After Any Changes
 
     return List2
 
@@ -80,9 +84,6 @@ def BubbleSort(List2, win, WinHeight):
 
                 ShowSwap(List2[j], List2[j+1], win)
 
-                List2[j].setFill("Red")
-                List2[j+1].setFill("Red")
-                win.update()
 
     return List2
 
@@ -96,47 +97,54 @@ def InsertionSort(List, win, WindowHeight):
                 List2[j+1].p1.y = WindowHeight - List2[j].value
                 List2[j+1].value = List2[j].value
                 ShowSwap(List2[j+1], List2[j], win)
-                List2[j].setFill("Red")
-                List2[j+1].setFill("Red")
+
                 j -= 1
 
         
         List2[j+1].value = key 
         List2[j+1].p1.y = WindowHeight - key
         ShowSwap(List2[j+1], List2[j], win)
-        List2[j].setFill("Red")
-        List2[j+1].setFill("Red")
+
         #time.sleep(.006)
 
     return List2
 
 #%% 
-def MergeSort(List):
-    List2 = copy.copy(List)
-    if len(List2) <=1:
-        return List2
-
-    midpoint = int(len(List2) / 2)
-    left, right = MergeSort(List2[:midpoint]), MergeSort(List2[midpoint:])
-    return Merge(left, right)
-    
-def Merge(left, right):
-    result = []
-    left_pointer = right_pointer = 0
-
-    while left_pointer < len(left) and right_pointer < len(right):
-        if left[left_pointer] < right[right_pointer]:
-            result.append(left[left_pointer])
-            left_pointer+=1
+def merge(arr, start, mid, end, win, WindowHeight): # IN-PLACE Merge sort - No extra array is created
+    start2 = mid + 1
+ 
+    if (arr[mid].value <= arr[start2].value):
+        return
+     
+    while (start <= mid and start2 <= end):
+        if (arr[start].value <= arr[start2].value):
+            start += 1
         else:
-            result.append(right[right_pointer])
-            right_pointer+=1
+            value = arr[start2].value
+            index = start2
+            while (index != start):
+                arr[index].value = arr[index - 1].value
+                arr[index].p1.y = WindowHeight - arr[index].value
+                ShowSwap(arr[index], arr[index-1], win)
 
-    result.extend(left[left_pointer:])
-    result.extend(right[right_pointer:])
+                index -= 1
+             
+            arr[start].value = value
+            arr[start].p1.y = WindowHeight - arr[start].value
+            ShowSwap(arr[index], arr[start], win)
 
-    return result
+            start += 1
+            mid += 1
+            start2 += 1
+         
+def mergeSort(arr, l, r, win, WindowHeight):
+    if (l < r):
+        m = l + (r - l) // 2
+        mergeSort(arr, l, m, win, WindowHeight)
+        mergeSort(arr, m + 1, r, win, WindowHeight)
+        merge(arr, l, m, r, win, WindowHeight)
 
+#%%
 def QuickSort(List, begin, end, win, WindowHeight):
     if (begin < end):
         partitionIndex = partition(List, begin, end, WindowHeight, win)
@@ -159,8 +167,7 @@ def partition(List, begin, end, WindowHeight, win):
             List[j].value = swapTemp
             List[j].p1.y = WindowHeight - swapTemp
             ShowSwap(List[i], List[j], win)
-            List[i].setFill("Red")
-            List[j].setFill("Red")
+
 
     swapTemp = List[i+1].value
     List[i+1].value = List[end].value
@@ -168,8 +175,7 @@ def partition(List, begin, end, WindowHeight, win):
     List[end].value = swapTemp
     List[end].p1.y = WindowHeight - swapTemp
     ShowSwap(List[i+1], List[end], win)
-    List[i+1].setFill("Red")
-    List[end].setFill("Red")
+
 
     return i+1
     
