@@ -1,5 +1,5 @@
+import random
 from graphics import *
-from UI_Functions import *
 from graphics import Rectangle as RectangleBase
 
 class MegaRect(RectangleBase): #A superclass had to be created to hold "Value" and initial Color
@@ -11,6 +11,14 @@ def changeConsoleText(Text, Status, window):
     Text.setText(Status)
     Text.draw(window)
     window.update()
+    
+def GenerateList(ListLength, ListLowerRange, ListUpperRange):
+    List = []
+    for i in range(int(ListLength) - 1):
+        List.append(random.randint(int(ListLowerRange),int(ListUpperRange)))
+
+    List.append(ListUpperRange)
+    return List
 
 def GenerateBars(List, WinWidth, WinHeight): #Converts a list of values to rectangle objects used for plotting
     BarList = []

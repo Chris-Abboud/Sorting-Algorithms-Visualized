@@ -1,8 +1,6 @@
 #%%
 import copy
-from UI_Functions import *
 from graphics import *
-from BarClass import *
 import time
 
 def clear(win):
@@ -54,7 +52,7 @@ def SelectionSort(List2, win, WinHeight):
                 MinimumValue = List2[j]
                 SwapIndex = j
 
-        SwapValue = List2[i].value #Must use integer. Using object itself will cause the entire object to change the others
+        SwapValue = List2[i].value #Must use integer. Using object itself will just create pointer
         List2[i].p1.y = WinHeight - MinimumValue.value #Must subtract from max height value to un-invert the rectangle
         List2[i].value = MinimumValue.value
 
@@ -112,10 +110,7 @@ def InsertionSort(List, win, WindowHeight):
 #%% 
 def merge(arr, start, mid, end, win, WindowHeight): # IN-PLACE Merge sort - No extra array is created
     start2 = mid + 1
- 
-    if (arr[mid].value <= arr[start2].value):
-        return
-     
+
     while (start <= mid and start2 <= end):
         if (arr[start].value <= arr[start2].value):
             start += 1
@@ -137,12 +132,12 @@ def merge(arr, start, mid, end, win, WindowHeight): # IN-PLACE Merge sort - No e
             mid += 1
             start2 += 1
          
-def mergeSort(arr, l, r, win, WindowHeight):
-    if (l < r):
-        m = l + (r - l) // 2
-        mergeSort(arr, l, m, win, WindowHeight)
-        mergeSort(arr, m + 1, r, win, WindowHeight)
-        merge(arr, l, m, r, win, WindowHeight)
+def mergeSort(arr, left, right, win, WindowHeight):
+    if (left < right):
+        middle = left + (right - left) // 2
+        mergeSort(arr, left, middle, win, WindowHeight)
+        mergeSort(arr, middle + 1, right, win, WindowHeight)
+        merge(arr, left, middle, right, win, WindowHeight)
 
 #%%
 def QuickSort(List, begin, end, win, WindowHeight):

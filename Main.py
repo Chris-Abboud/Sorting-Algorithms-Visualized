@@ -1,8 +1,6 @@
 from Algorithms import *
-from UI_Functions import *
-from BarClass import *
-from SortingAlgorithms import *
 from graphics import *
+from UI_Helpers import *
 
 def main():
     WindowWidth = 1000 # Width of Window
@@ -11,7 +9,7 @@ def main():
     ListValues = 150 # How many bars are initially present
     ListMaximum = 500 # Maximum height of a given bar
     ConsoleSpace = 50 # Space under buttons for the console
-    text = str(ListValues) #Initial text in Entry Box
+    text = str(ListValues) #Initial text in Console
 
     ListInputs = [ListValues, 1, ListMaximum] # Random List [Range, Low, High]
     ValueList = GenerateList(ListInputs[0], ListInputs[1], ListInputs[2]) #A Random lies of values first has to be generated
@@ -71,7 +69,6 @@ def main():
                 plotGraph(VisualBars, window) #Plots Bar
                 Selection, Bubble, Insertion, Merge, Quick, Reset, ConsoleText, Number = buttons(WindowWidth, ListInputs[2], ButtonSpace, ButtonHeight, ConsoleSpace, text, window) #Refresh UI Elements
             
-
 main()
 
 
