@@ -173,8 +173,5 @@ def partition(List, begin, end, WindowHeight, win):
 
 
     return i+1
-    
-
-
 
 #%%
