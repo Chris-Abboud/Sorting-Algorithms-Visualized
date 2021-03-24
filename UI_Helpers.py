@@ -126,8 +126,6 @@ def buttons(WindowWidth, WindowHeight, ButtonSpace, ButtonHeight, ConsoleSpace, 
     Number.setText(text)
     Number.draw(window)
 
-
-
     window.update()
 
     return Selection, Bubble, Insertion, Merge, Quick, NewData, ConsoleText, Number
