@@ -11,6 +11,7 @@ def isAlreadySorted(List):
         if (List[i].value < List[i-1].value):
             return False
     return True
+    
 def ShowSwap(RecOne, RecTwo, win):
     RecOne.undraw()
     RecOne.setFill("Green")
@@ -146,7 +147,7 @@ def QuickSort(List, begin, end, win, WindowHeight):
 
         QuickSort(List, begin, partitionIndex-1, win, WindowHeight)
         QuickSort(List, partitionIndex+1, end, win, WindowHeight)
-    
+     
 
 def partition(List, begin, end, WindowHeight, win):
     pivot = List[end]
